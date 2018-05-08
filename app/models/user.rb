@@ -6,9 +6,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   belongs_to :posts
-  belongs_to :comments
+  has_many :comments
   has_many :likes
   has_many :liked_posts, through: :likes, source: :users
+
 
   def is_like?(post)
    Like.find_by(user_id: self.id, post_id: post.id).present? 

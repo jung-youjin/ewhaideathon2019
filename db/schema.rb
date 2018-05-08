@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20180506112937) do
     t.text     "name"
     t.string   "content"
     t.integer  "post_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,12 +34,12 @@ ActiveRecord::Schema.define(version: 20180506112937) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "img"
-    t.text     "title"
+    t.text     "title",       default: "EwhaLikelion"
     t.string   "content"
     t.integer  "user_id"
     t.text     "writer_name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "roles", force: :cascade do |t|

@@ -1,61 +1,109 @@
 <!--<h1 style=color:white>clickIdea : 상품개별 페이지입니다. </h1>->
 <!-- Wrapper -->
+<head>
+	<link type="text/css" rel="stylesheet" href="newmain.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+	<style>
+		h2, h3, h4, .detail {color: white;}
+		#submit {margin-top : 20px;}
+		hr{
+		   border: 1px solid #fff;
+		   margin-top: 2rem;
+		}
+	</style>
+</head>
+<body>
 	<div id="wrapper">
 		
+
 		
-				<a href= "/home/ideaList">목록으로</a>
-				<br>
+				
+		<div class="container">
+			<h2 class="makeItCenter"> Details</h2></br>
+			<<div class="row">
+				<div class ="col-4">
+				<%= image_tag @post.img.url, style: 'width:300px; height:300px;', class: "img-thumbnail"%> </br></br>
+				</div>
+				<div class="col-1"></div>
+				<div class ="col-7">
+					<p></p>
+					<div class="row">
+						<h4 class="center">상품명: <%=@post.title%></h4>
+					</div><br>
+					<div class="row">
+						<h4>판매자: <%=@post.writer_name%></h4>
+					</div><br>
+					<div class="row">
+
+						<div class ="col-1.5">
+							<h4><%=image_tag("redHeart.png", style: 'width:30px; height:30px;')%>      <strong ><%=@post.likes.size%><strong></h4>
+						</div>
+						
+						<div class ="col-2">
+							<% if current_user.is_like? (@post) %>
+							
+							<form action='/post/<%=@post.id%>/like' method='post'>
+							<button> 구매 취소! </button>
+							</form>
+							
+							<%else%>
+							<form action='/post/<%=@post.id%>/like' method='post'>
+							<button> 구매할래요! </button>
+							</form>
+							
+							<%end%>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
 		
-		<h5>아이디어 작성자: <%=@post.writer_name%></h5>
-		<h4>예시 이미지</h4> <%= image_tag @post.img.url, style: 'width:300px'%>
-		<h2>아이디어 이름: <%=@post.title%></h2>
-		<h3>상세 설명</h3>
-		<p><%=@post.content%></p>
+			<h4>상세설명</h4>
+			<p class="detail"><%=@post.content%></p>
 		
 			<!--좋아요 구현-->
-				<p> <strong ><%=@post.likes.size%><strong> 개의 하트시그널!
-				</p>
+
 				
-				<p>
-					<% if current_user.is_like? (@post) %>
-					
-					<form action='/post/<%=@post.id%>/like' method='post'>
-					<button> 구매 취소! </button>
-					</form>
-					
-					<%else%>
-					<form action='/post/<%=@post.id%>/like' method='post'>
-					<button> 구매할래요! </button>
-					</form>
-					
-					<%end%>
-				</p>
 			<%if (can? :update, :destroy, @post) || (current_user.id == @post.user_id) %>
-				<%= link_to "[수정]", "/home/updateIdea/#{@post.id}"%>
-				<%= link_to "[삭제]", "/home/destroy/#{@post.id}"%>
+				<div class="makeItline row">
+					<div class ="col-10"></div>
+					<div class ="col-1"><%= button_to "수정", "/home/updateIdea/#{@post.id}", method: 'post'%></div>
+					<div class ="col-1"><%= button_to "삭제", "/home/destroy/#{@post.id}",data: { confirm:'정말로 삭제할꺼에요..?' }%></div>
+				</div>
 			<%end%>
-			<p>==========================</p>
+			<hr>
 		
 		<div>
 			<%@post.comments.each do |com|%>
 			<!--여기 별명하고 내용부분 그리드 처리해서 보기 좋게-->
 				<p><%=com.name%> : <%=com.content%>
-				<%@row = Post.find_by(id: @post.id)%>
-				<%if (can? :destroy, com) || (current_user.id ==@row.user_id)%>
-				<%= link_to "[삭제]","/comt/com_destroy/#{@post.id}/#{com.id}" %></p>
+				<%if (can? :destroy, com)  || (current_user.id == com.user_id) %>
+				<%= link_to "/comt/com_destroy/#{@post.id}/#{com.id}" do %>
+					<i style ="color:white" class="fas fa-trash-alt"></i>
+				<%end%>
+				</p>
 				<%end%>
 			<%end%>
 			<hr>
 		</div>
-	
+<br>
 		<form action ="/comt/com_create/<%=@post.id%>" method ="post">
-			댓글 내용: <textarea name ="com_content" placeholder="아기사자의 한마디!"></textarea>
-			<input type ="submit" value ="작성">
+			<h3>댓글작성 </h3>
+			<div class="row">
+				<div class="col-10">
+					<textarea name ="com_content" placeholder="아기사자의 한마디!"></textarea>
+			    </div>
+			    <div class="col-2">
+					<input id ="submit" type ="submit" value ="작성">
+				</div>
+			</div>
 		</form>
 		
-		
+		<div class="makeItCenter"><form action="/ideaList" method="get"><button type="submit">목록으로</button></form></div>
+				<br>
 
-		
+	</div>	
 	<!-- Footer -->
 		<footer id="footer">
 			<p class="copyright">&copy; EwhaLikelion. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
@@ -64,3 +112,4 @@
 	</div>		
 <!-- BG -->
 	<div id="bg"></div>
+	</body>

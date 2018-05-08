@@ -1,16 +1,22 @@
+
 <!--<h1 style=color:white>uploadIdea : 새로운 아이디어 업로드하는 페이지입니다. </h1>-->
 <!-- Wrapper -->
 	<div id="wrapper">
-		
+			
+
 			<!--여기 배치좀 도와주세요ㅠㅠ-->
+			<h2 class="makeItCenter"> Show off your Idea ! </h2></br>
 		<%=form_tag("/home/create", method:"post", multipart: true) do%>
-			<%= label_tag(:title, "아이디어 이름: ")%>
-			<%= text_field_tag (:title)%>
+			<%= label_tag(:title, "아이디어 제목: ")%>
+			<%= text_field_tag (:title)%><br>
 			<%= label_tag(:content, "아이디어 상세설명: ")%>
-			<%= text_area_tag (:content)%>
+			<%= text_area_tag (:content), "", rows: 10, cols: 150%><br>
 			<%= label_tag('image_up',"아이디어 대표 이미지")%>
-			<%= file_field_tag 'image_up'%>
-			<%= submit_tag("등록완료")%>
+			<%= file_field_tag 'image_up'%><br>
+			<br>
+			<div class="makeItCenter"><%= submit_tag("등록완료")%>
+			<form action="/ideaList" method="get"><button type="submit">목록으로</button></form>
+			</div>
 		<%end%>
 			
 	<!-- Footer -->

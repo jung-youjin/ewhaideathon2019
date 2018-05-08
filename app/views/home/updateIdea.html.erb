@@ -8,8 +8,10 @@
 		<%=form_tag("/home/update/#{@post.id}", method:"post", multipart: true) do%>
 			<%= label_tag(:title, "아이디어 이름: ")%>
 			<%= text_field_tag (:title), @post.title%>
+			
 			<%= label_tag(:content, "아이디어 상세설명: ")%>
-			<%= text_area_tag (:content), @post.content%>
+			<%= text_area_tag (:content), @post.content , rows: 10, cols: 150%>
+			
 			<%= label_tag('image_up',"아이디어 대표 이미지")%>
 			<%= file_field_tag 'image_up'%>
 

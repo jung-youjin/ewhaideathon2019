@@ -1,26 +1,35 @@
 		<!--<h1 style=color:white> Idealist : 전체 상품 진열 페이지입니다. </h1>-->
 
+<head>
+	<link type="text/css" rel="stylesheet" href="newmain.css" />
+</head>
+
+<body>
 <!-- Wrapper -->
 	<div id="wrapper">
-		<h2> USER: <%= current_user.email%> </h2>
-		<h3> Usernickname: <%= current_user.nickname%></h3>
-		<a href = '/users/sign_out'> LOG OUT </a>
+		<h2>  <%= current_user.email%> </h2>
+		<h3><%=image_tag("user.png",style: 'width:25px; height:25px;')%> <%= current_user.nickname%></h3>
+		<!--<a href = '/users/sign_out'> LOG OUT </a>-->
 
 
-	
-		<a href="/home/uploadIdea">[상품 등록하기]</a><br>
+		</br>
+		<form action="/" method="get"><button type="submit">메인으로 가기</button></form>
+		<form action="/uploadIdea" method="get"><button type="submit" name ="loginbotton">상품 등록하기</button></form></br>
 		
 		<!--상품 진열 배치 해주세요ㅠㅠ-->
-		<div>
+		<div class="ideaWrapper">
+			<div class="sq">
 			<%@posts.each do |post|%>
-				<h3>등록한 이미지</h3> <%= image_tag post.img.url, style: 'width:300px'%>
-				<h4>제목 : <%=post.title%></h4>
-				<h4><a href = "/home/clickIdea/<%=post.id%>">상세보기!</a></h4>
-				<hr>
-				<h4><%=post.likes.size%> 명이 구매하고 싶어합니다!</h4>
-			
+			<div class="idea_item">
+				<%= image_tag post.img.url, style: 'width:340px; height:250px;'%>
+				<h2><%=post.title%></h2>
+				<form action="/clickIdea/<%=post.id%>" method="get"><button type="submit">상품보기</button></form>
+				<h4><%=image_tag("icon1.png")%><%=post.likes.size%></h4>
+			</div>
 			<%end%>
+			</div>
 		</div>
+		
 
 	<!-- Footer -->
 		<footer id="footer">
@@ -31,3 +40,4 @@
 	
 <!-- BG -->
 	<div id="bg"></div>
+</body>
