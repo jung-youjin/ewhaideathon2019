@@ -29,10 +29,10 @@
 				<div class ="col-7">
 					<p></p>
 					<div class="row">
-						<h4 class="center">상품명: <%=@post.title%></h4>
+						<h4 class="center">아이디어명: <%=@post.title%></h4>
 					</div><br>
 					<div class="row">
-						<h4>판매자: <%=@post.writer_name%></h4>
+						<h4>기획자: <%=@post.writer_name%></h4>
 					</div><br>
 					<div class="row">
 
@@ -44,12 +44,12 @@
 							<% if current_user.is_like? (@post) %>
 							
 							<form action='/post/<%=@post.id%>/like' method='post'>
-							<button> 구매 취소! </button>
+							<button> 좋아요 취소! </button>
 							</form>
 							
 							<%else%>
 							<form action='/post/<%=@post.id%>/like' method='post'>
-							<button> 구매할래요! </button>
+							<button> 좋아요! </button>
 							</form>
 							
 							<%end%>
@@ -68,8 +68,8 @@
 			<%if (can? :update, :destroy, @post) || (current_user.id == @post.user_id) %>
 				<div class="makeItline row">
 					<div class ="col-10"></div>
-					<div class ="col-1"><%= button_to "수정", "/home/updateIdea/#{@post.id}", method: 'post'%></div>
-					<div class ="col-1"><%= button_to "삭제", "/home/destroy/#{@post.id}",data: { confirm:'정말로 삭제할꺼에요..?' }%></div>
+					<div class ="col-1"><%#= button_to "수정", "/home/updateIdea/#{@post.id}", method: 'post'%></div>
+					<div class ="col-1"><%#= button_to "삭제", "/home/destroy/#{@post.id}",data: { confirm:'정말로 삭제할꺼에요..?' }%></div>
 				</div>
 			<%end%>
 			<hr>

@@ -14,7 +14,7 @@
 
 		</br>
 		<form action="/" method="get"><button type="submit">메인으로 가기</button></form>
-		<form action="/uploadIdea" method="get"><button type="submit" name ="loginbotton">상품 등록하기</button></form></br>
+		<form action="/uploadIdea" method="get"><button type="submit" name ="loginbotton">아이디어 등록하기</button></form></br>
 		
 		<!--상품 진열 배치 해주세요ㅠㅠ-->
 		<div class="ideaWrapper">
@@ -23,7 +23,7 @@
 			<div class="idea_item">
 				<%= image_tag post.img.url, style: 'width:340px; height:250px;'%>
 				<h2><%=post.title%></h2>
-				<form action="/clickIdea/<%=post.id%>" method="get"><button type="submit">상품보기</button></form>
+				<form action="/clickIdea/<%=post.id%>" method="get"><button type="submit">아이디어 보기</button></form>
 				<h4><%=image_tag("icon1.png")%><%=post.likes.size%></h4>
 			</div>
 			<%end%>
